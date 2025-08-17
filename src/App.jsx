@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TweetProvider } from './context/tweetContext';
 import { UserProvider } from './context/userContext';
 import { Profile } from './Pages/Profile';
@@ -8,7 +8,7 @@ import { Navbar } from './Pages/NavBar';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter basename="/Tweeter-2.0-Project/">
       <UserProvider>
         <TweetProvider>
           <Navbar />
@@ -20,7 +20,7 @@ function App() {
           </div>
         </TweetProvider>
       </UserProvider>
-    </Router>
+    </BrowserRouter>
   );
 }
 
