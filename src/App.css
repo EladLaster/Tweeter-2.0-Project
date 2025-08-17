@@ -1,36 +1,27 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f5f8fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
-/* Fonts & base */
-* {
+
+.App {
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
   box-sizing: border-box;
 }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  margin: 0;
-  padding: 20px;
-  color: #333;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 h1 {
-  font-weight: 700;
-  font-size: 3rem;
-  margin-bottom: 2rem;
-  color: #005f99;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #1da1f2;
+  margin-bottom: 20px;
 }
 
 
 
+/* 
 .comments-list {
   margin-bottom: 15px;
 }
@@ -118,17 +109,12 @@ h1 {
 
 .btn-delete-post:hover {
   color: #cc3333;
-}
+} */
 
 /* רספונסיביות בסיסית */
 @media (max-width: 640px) {
   body {
     padding: 10px;
   }
-  .new-post {
-    flex-direction: column;
-  }
-  #twit-button {
-    width: 100%;
-  }
+  
 }

@@ -4,26 +4,18 @@ import { Tweet } from "./tweet";
 import "./tweetList.css";
 
 export function TweetList() {
+  const { tweets, loading } = useContext(TweetContext);
 
-    const {tweets,setTweets} = useContext(TweetContext);
+  if (loading && tweets.length === 0) return <p>Loading tweets...</p>;
+  if (!tweets || tweets.length === 0) return <p>No tweets yet</p>;
 
-      if (!tweets || tweets.length === 0) return null;
-
-    function deleteTweet(id){
-    const filtered = tweets.filter(tweet => tweet.id !== id);
-    setTweets(filtered);
-  }
   return (
-    <>
-      {tweets.length > 0 && (
-        <div className="posts">
-          <ul>
-            {tweets.map((tweet) => (
-              <Tweet key={tweet.id} tweet={tweet} onDelete={() => deleteTweet(tweet.id)}/>
-            ))}
-          </ul>
-        </div>
-      )}
-    </>
+    <div className="posts">
+      <ul>
+        {tweets.map((tweet) => (
+          <Tweet key={tweet.id || tweet.date} tweet={tweet} />
+        ))}
+      </ul>
+    </div>
   );
 }
