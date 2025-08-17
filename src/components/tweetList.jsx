@@ -4,8 +4,9 @@ import { Tweet } from "./tweet";
 import "./tweetList.css";
 
 export function TweetList() {
-  const { tweets, loading } = useContext(TweetContext);
+  const { tweets, loading, error } = useContext(TweetContext);
 
+  if (error) return <p className="error">{error}</p>;
   if (loading && tweets.length === 0) return <p>Loading tweets...</p>;
   if (!tweets || tweets.length === 0) return <p>No tweets yet</p>;
 
