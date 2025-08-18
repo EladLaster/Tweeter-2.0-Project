@@ -1,24 +1,40 @@
-.new-post {
+.tweet-container {
+  background-color: #ffffff; /* תכלת עדין */
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  gap: 15px;
 }
 
-.new-post input {
+.tweet-title {
+  color: #1a73e8; /* כחול לכותרת */
+  margin: 0;
+  text-align: center;
+}
+
+.tweet-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.tweet-input-group input {
+  flex: 1;
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccd6dd;
-  margin-bottom: 10px;
   outline: none;
 }
 
-.new-post input:disabled {
-  background-color: #e6ecf0;
+.tweet-input-group input:disabled {
+  background-color: #d0e7f9;
 }
 
-.new-post button {
-  padding: 10px;
+.tweet-input-group button {
+  padding: 10px 15px;
   background-color: #1da1f2;
   color: white;
   font-weight: bold;
@@ -28,19 +44,18 @@
   transition: background-color 0.2s ease;
 }
 
-.new-post button:disabled {
-  background-color: #7bb8f5;;
+.tweet-input-group button:disabled {
+  background-color: #4da6ff;
   cursor: not-allowed;
 }
 
-.new-post button:hover:not(:disabled) {
+.tweet-input-group button:hover:not(:disabled) {
   background-color: #0d95e8;
 }
 
 .char-counter {
   font-size: 12px;
   color: #657786;
-  margin-top: 5px;
 }
 
 .over-limit {
@@ -50,6 +65,5 @@
 
 .error {
   color: red;
-  margin-top: 5px;
   font-size: 14px;
 }

@@ -23,22 +23,24 @@ export function InputTweet() {
     }
   };
 
+  const isDisabled = !text.trim() || text.length > 140 || loading || !username;
+
   return (
-    <div className="new-post">
-      <input
-        type="text"
-        value={text}
-        onChange={handleChange}
-        onKeyDown={keydown}
-        placeholder="What's on your mind?"
-        disabled={loading || !username}
-      />
-      <button
-        onClick={handleSubmit}
-        disabled={!text.trim() || text.length > 140 || loading || !username}
-      >
-        {loading ? "Posting..." : "Tweet"}
-      </button>
+    <div className="tweet-container">
+      <h3 className="tweet-title">Create a Tweet</h3>
+      <div className="tweet-input-group">
+        <input
+          type="text"
+          value={text}
+          onChange={handleChange}
+          onKeyDown={keydown}
+          placeholder="What's on your mind?"
+          disabled={loading || !username}
+        />
+        <button onClick={handleSubmit} disabled={isDisabled}>
+          {loading ? "Posting..." : "Tweet"}
+        </button>
+      </div>
       {!username && <div className="error">Set your username first!</div>}
       <div className={`char-counter ${text.length > 140 ? "over-limit" : ""}`}>
         {text.length} / 140
