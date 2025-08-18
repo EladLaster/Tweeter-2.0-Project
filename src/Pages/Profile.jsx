@@ -14,6 +14,8 @@ export function Profile() {
     setUsername(nameInput);
   };
 
+  const isDisabled = !nameInput.trim();
+
   return (
     <form className="profile-form">
       <h2>Profile</h2>
@@ -26,7 +28,12 @@ export function Profile() {
           placeholder="Enter your name" 
         />
       </label>
-      <button onClick={handleSave}>Save</button>
+      <button 
+        onClick={handleSave} 
+        disabled={isDisabled}
+      >
+        Save
+      </button>
       {username && <p>Current user: <strong>{username}</strong></p>}
     </form>
   );

@@ -6,7 +6,10 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+  width: 400px;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 .profile-form h2 {
@@ -24,8 +27,8 @@
 }
 
 .profile-form input {
-  padding: 10px;
-  font-size: 16px;
+  padding: 14px;
+  font-size: 20px;
   border-radius: 8px;
   border: 1px solid #ccd6dd;
   margin-top: 5px;
@@ -50,6 +53,14 @@
 .profile-form button:hover {
   background-color: #0d95e8;
 }
+
+.profile-form button:disabled {
+  background-color: #7bb8f5; /* צבע תכלת ברור */
+  color: white;
+  cursor: not-allowed; /* סימן עצור */
+  border: none;
+}
+
 
 .profile-form p {
   font-size: 14px;

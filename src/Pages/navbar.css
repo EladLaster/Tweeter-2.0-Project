@@ -1,29 +1,25 @@
-/* Navbar קבוע ויפה עם צללים ורקע מודרני */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 50px;
   background: linear-gradient(90deg, #1da1f2, #0d95e8);
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  justify-content: start;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* קונטיינר לרוחב מוגבל */
 .nav-container {
   width: 100%;
   max-width: 700px;
   display: flex;
-  justify-content: space-between;
+  gap : 20px;
   padding: 0 25px;
 }
 
-/* קישורים */
 .nav-link {
   color: white;
   font-weight: 600;
@@ -33,7 +29,6 @@
   transition: color 0.2s ease;
 }
 
-/* הדגשת הקישור הנוכחי */
 .nav-link.active::after {
   content: "";
   position: absolute;

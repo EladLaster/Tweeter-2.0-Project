@@ -13,6 +13,7 @@ function App() {
         <TweetProvider>
           <Navbar />
           <div className="App">
+            <h1>Tweeter 2.0</h1>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
