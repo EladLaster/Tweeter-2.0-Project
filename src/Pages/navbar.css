@@ -7,17 +7,16 @@
   background: linear-gradient(90deg, #1da1f2, #0d95e8);
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between; /* שמאל/ימין */
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 25px;
 }
 
-.nav-container {
-  width: 100%;
-  max-width: 700px;
+.nav-left, .nav-right {
   display: flex;
-  gap : 20px;
-  padding: 0 25px;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-link {
@@ -40,9 +39,24 @@
   border-radius: 2px;
 }
 
-/* אפקט hover */
 .nav-link:hover {
   color: #ffad1f;
+}
+
+/* כפתורי Login/Logout בצד ימין */
+.user-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: #1da1f2;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.user-actions button:hover {
+  background-color: #e6e6e6;
 }
 
 /* padding ל־App כדי שהתוכן לא יתפס מאחורי ה-navbar */
@@ -50,12 +64,16 @@
   padding-top: 70px;
 }
 
-/* Responsive – מתאים למובייל */
+/* Responsive */
 @media (max-width: 600px) {
-  .nav-container {
-    padding: 0 15px;
+  .nav-left, .nav-right {
+    gap: 10px;
   }
   .nav-link {
+    font-size: 14px;
+  }
+  .user-actions button {
+    padding: 4px 8px;
     font-size: 14px;
   }
 }

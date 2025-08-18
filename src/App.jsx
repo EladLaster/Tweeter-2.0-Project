@@ -5,6 +5,8 @@ import { UserProvider } from './context/userContext';
 import { Profile } from './Pages/Profile';
 import { Home } from './Pages/Home';
 import { Navbar } from './Pages/NavBar';
+import { Login } from './Pages/login';
+import { ProtectedRoute } from './components/protectedRoute'; 
 
 function App() {
   return (
@@ -15,8 +17,26 @@ function App() {
           <div className="App">
             <h1>Tweeter 2.0</h1>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
+              {/* דפים מוגנים */}
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* דפים פתוחים */}
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </TweetProvider>

@@ -24,30 +24,39 @@ export function TweetProvider({ children }) {
     };
 
     fetchTweets();
-    const interval = setInterval(fetchTweets, 10000); 
+    const interval = setInterval(fetchTweets, 10000);
     return () => clearInterval(interval);
   }, []);
 
   const addTweet = async (content, userName) => {
-    if (!content || !userName) return;
+  if (!content || !userName) return;
 
-    setLoading(true);
-    setError(null);
+  setLoading(true);
+  setError(null);
 
-    try {
-      const { data, error } = await supabase
-        .from('tweetTable')
-        .insert([{ content, userName }])
-        .select();
+  try {
+    // מוסיפים את הציוץ
+    const { data, error } = await supabase
+      .from('tweetTable')
+      .insert([{ content, userName, created_at: new Date().toISOString() }])
+      .select(); // select מחזיר את הנתונים שנוספו
 
-      if (error) throw error;
+    if (error) throw error;
+
+    // אם נתונים הגיעו, נוסיף ל־state
+    if (data && data.length > 0) {
       setTweets(prev => [data[0], ...prev]);
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
+    } else {
+      // fallback: צור אובייקט בעצמך
+      setTweets(prev => [{ content, userName, created_at: new Date().toISOString() }, ...prev]);
     }
-  };
+  } catch (err) {
+    setError(err.message || "Failed to add tweet");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <TweetContext.Provider value={{ tweets, addTweet, loading, error }}>

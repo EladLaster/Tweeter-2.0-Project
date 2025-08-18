@@ -1,0 +1,76 @@
+
+/* סגנון לפורם עצמו */
+form {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* כותרת הפורם */
+form h2 {
+  margin-bottom: 25px;
+  color: #1da1f2;
+  font-size: 28px;
+}
+
+/* שדות קלט */
+form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+
+}
+
+form input:focus {
+  outline: none;
+  border-color: #1da1f2;
+}
+
+/* כפתור התחברות */
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1da1f2;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+form button:hover {
+  background-color: #0d95e8;
+  transform: translateY(-2px);
+}
+
+/* הודעות שגיאה */
+form p {
+  margin-top: 10px;
+  color: red;
+  font-size: 14px;
+}
+
+/* רספונסיביות */
+@media (max-width: 450px) {
+  form {
+    padding: 30px 20px;
+  }
+  form h2 {
+    font-size: 24px;
+  }
+  form input, form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

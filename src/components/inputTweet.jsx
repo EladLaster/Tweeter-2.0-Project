@@ -6,13 +6,15 @@ import "./inputTweet.css";
 export function InputTweet() {
   const [text, setText] = useState("");
   const { addTweet, loading, error } = useContext(TweetContext);
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext); // השתנה מ-username ל-user
 
   const handleChange = (e) => setText(e.target.value);
 
   const handleSubmit = async () => {
-    if (!text.trim() || text.length > 140 || loading || !username) return;
-    await addTweet(text, username);
+    if (!text.trim() || text.length > 140 || loading || !user) return;
+
+    // שולח את המייל של המשתמש כ-userName
+    await addTweet(text, user.email); 
     setText("");
   };
 
@@ -23,7 +25,7 @@ export function InputTweet() {
     }
   };
 
-  const isDisabled = !text.trim() || text.length > 140 || loading || !username;
+  const isDisabled = !text.trim() || text.length > 140 || loading || !user;
 
   return (
     <div className="tweet-container">
@@ -35,13 +37,13 @@ export function InputTweet() {
           onChange={handleChange}
           onKeyDown={keydown}
           placeholder="What's on your mind?"
-          disabled={loading || !username}
+          disabled={loading || !user}
         />
         <button onClick={handleSubmit} disabled={isDisabled}>
           {loading ? "Posting..." : "Tweet"}
         </button>
       </div>
-      {!username && <div className="error">Set your username first!</div>}
+      {!user && <div className="error">Set your username first!</div>}
       <div className={`char-counter ${text.length > 140 ? "over-limit" : ""}`}>
         {text.length} / 140
       </div>

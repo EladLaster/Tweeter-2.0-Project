@@ -3,24 +3,27 @@ import { UserContext } from "../context/userContext";
 import "./profile.css";
 
 export function Profile() {
-  const { username, setUsername } = useContext(UserContext);
-  const [nameInput, setNameInput] = useState(username);
+  const { user } = useContext(UserContext); // משתמשים ב-user במקום username
+  const [nameInput, setNameInput] = useState(user?.email || ""); // או user_metadata.full_name אם שמרת שם
 
   const handleChange = (e) => setNameInput(e.target.value);
 
   const handleSave = (e) => {
     e.preventDefault();
     if (!nameInput.trim()) return;
-    setUsername(nameInput);
+    // כאן אפשר לעדכן את user_metadata ב-Supabase אם רוצים לשמור שם
+    alert("Profile updated (not yet saved to Supabase)");
   };
 
   const isDisabled = !nameInput.trim();
+
+  if (!user) return <p>Please log in to see your profile.</p>;
 
   return (
     <form className="profile-form">
       <h2>Profile</h2>
       <label>
-        User Name:
+        Email:
         <input 
           type="text" 
           value={nameInput} 
@@ -34,7 +37,7 @@ export function Profile() {
       >
         Save
       </button>
-      {username && <p>Current user: <strong>{username}</strong></p>}
+      <p>Current user: <strong>{user.email}</strong></p>
     </form>
   );
 }
