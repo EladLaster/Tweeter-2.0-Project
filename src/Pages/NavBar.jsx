@@ -1,10 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import "./navbar.css";
 
 export function Navbar() {
   const { user, logout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
@@ -18,7 +24,7 @@ export function Navbar() {
       </div>
       <div className="nav-right user-actions">
         {user ? (
-          <button onClick={logout}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         ) : (
           <NavLink to="/login"><button>Login</button></NavLink>
         )}

@@ -3,13 +3,10 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 export function ProtectedRoute({ children }) {
-  const { user } = useContext(UserContext);
+  const { user, loadingUser } = useContext(UserContext);
 
-  if (!user) {
-    // לא מחובר → ניתוב ל-login
-    return <Navigate to="/login" replace />;
-  }
+  if (loadingUser) return <p>Loading user...</p>;
+  if (!user) return <Navigate to="/login" replace />;
 
-  // מחובר → מציג את הדף
   return children;
 }

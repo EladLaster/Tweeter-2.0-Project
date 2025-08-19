@@ -1,43 +1,56 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 import "./profile.css";
 
 export function Profile() {
-  const { user } = useContext(UserContext); // משתמשים ב-user במקום username
-  const [nameInput, setNameInput] = useState(user?.email || ""); // או user_metadata.full_name אם שמרת שם
+  const { user, username, setUsername } = useContext(UserContext);
+  const [nameInput, setNameInput] = useState(username);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  // סנכרון עם username ב־Context
+  useEffect(() => {
+    setNameInput(username);
+  }, [username]);
 
   const handleChange = (e) => setNameInput(e.target.value);
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     if (!nameInput.trim()) return;
-    // כאן אפשר לעדכן את user_metadata ב-Supabase אם רוצים לשמור שם
-    alert("Profile updated (not yet saved to Supabase)");
+
+    await setUsername(nameInput.trim());
+    setMessage("Profile updated!");
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
   };
 
   const isDisabled = !nameInput.trim();
 
-  if (!user) return <p>Please log in to see your profile.</p>;
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
 
   return (
     <form className="profile-form">
       <h2>Profile</h2>
       <label>
-        Email:
-        <input 
-          type="text" 
-          value={nameInput} 
-          onChange={handleChange} 
-          placeholder="Enter your name" 
+        Name:
+        <input
+          type="text"
+          value={nameInput}
+          onChange={handleChange}
+          placeholder="Enter your name"
         />
       </label>
-      <button 
-        onClick={handleSave} 
-        disabled={isDisabled}
-      >
+      <button onClick={handleSave} disabled={isDisabled}>
         Save
       </button>
-      <p>Current user: <strong>{user.email}</strong></p>
+      {message && <p className="success">{message}</p>}
+      <p>Current user: <strong>{username}</strong></p>
     </form>
   );
 }

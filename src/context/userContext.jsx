@@ -5,27 +5,27 @@ export const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState(""); // שם זמני שניתן לשנות
+  const [username, setUsername] = useState("");
+  const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
-    // קבלת המשתמש הנוכחי
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (!error && data.user) {
         setUser(data.user);
-        // אם אין שם זמני, נשתמש בחלק מהאימייל כברירת מחדל
-        setUsername(data.user.email.split("@")[0]);
+        setUsername(data.user.user_metadata?.full_name || data.user.email.split("@")[0]);
       }
+      setLoadingUser(false);
     };
     fetchUser();
 
-    // מאזין לשינויי התחברות
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       const currentUser = session?.user || null;
       setUser(currentUser);
-      if (currentUser && !username) {
-        setUsername(currentUser.email.split("@")[0]);
+      if (currentUser) {
+        setUsername(currentUser.user_metadata?.full_name || currentUser.email.split("@")[0]);
       }
+      setLoadingUser(false);
     });
 
     return () => listener.subscription.unsubscribe();
@@ -34,8 +34,9 @@ export function UserProvider({ children }) {
   const login = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+
     setUser(data.user);
-    setUsername(data.user.email.split("@")[0]); // שם זמני ברירת מחדל
+    setUsername(data.user.user_metadata?.full_name || data.user.email.split("@")[0]);
     return data.user;
   };
 
@@ -45,13 +46,21 @@ export function UserProvider({ children }) {
     setUsername("");
   };
 
-  const saveUsername = (name) => {
+  const saveUsername = async (name) => {
     if (!name.trim()) return;
+
     setUsername(name.trim());
+
+    if (user) {
+      const { error } = await supabase.auth.updateUser({
+        data: { full_name: name.trim() }
+      });
+      if (error) console.error("Error updating username in Supabase:", error.message);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ user, username, login, logout, setUsername: saveUsername }}>
+    <UserContext.Provider value={{ user, username, login, logout, setUsername: saveUsername, loadingUser }}>
       {children}
     </UserContext.Provider>
   );
