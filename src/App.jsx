@@ -2,11 +2,12 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TweetProvider } from './context/tweetContext';
 import { UserProvider } from './context/userContext';
-import { Home } from './Pages/Home';
 import { Profile } from './Pages/Profile';
-import { Login } from './Pages/Login';
+import { Home } from './Pages/Home';
 import { Navbar } from './Pages/NavBar';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { Login } from './Pages/Login';
+import { SignUp } from './Pages/SignUp';
+import { ProtectedRoute } from './components/ProtectedRoute'; 
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <div className="App">
             <h1>Tweeter 2.0</h1>
             <Routes>
+              {/* דפים מוגנים */}
               <Route path="/" element={
                 <ProtectedRoute>
                   <Home />
@@ -27,7 +29,10 @@ function App() {
                   <Profile />
                 </ProtectedRoute>
               }/>
+
+              {/* דפים פתוחים */}
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
             </Routes>
           </div>
         </TweetProvider>

@@ -5,8 +5,14 @@ import { UserContext } from "../context/userContext";
 export function ProtectedRoute({ children }) {
   const { user, loadingUser } = useContext(UserContext);
 
-  if (loadingUser) return <p>Loading user...</p>;
-  if (!user) return <Navigate to="/login" replace />;
+  if (loadingUser) {
+    // מחזיר משהו בזמן שהמשתמש עדיין בטעינה
+    return <p>Loading...</p>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   return children;
 }
