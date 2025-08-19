@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabase/supabaseClient"; // <--- ייבוא חסר
+import { supabase } from "../supabase/supabaseClient";
 import "./signup.css";
 
 export function SignUp() {

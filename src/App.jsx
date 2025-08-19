@@ -18,7 +18,6 @@ function App() {
           <div className="App">
             <h1>Tweeter 2.0</h1>
             <Routes>
-              {/* דפים מוגנים */}
               <Route path="/" element={
                 <ProtectedRoute>
                   <Home />
@@ -30,7 +29,6 @@ function App() {
                 </ProtectedRoute>
               }/>
 
-              {/* דפים פתוחים */}
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
             </Routes>

@@ -1,5 +1,5 @@
 .tweet-container {
-  background-color: #ffffff; /* תכלת עדין */
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 12px;
   max-width: 500px;
@@ -10,7 +10,7 @@
 }
 
 .tweet-title {
-  color: #1a73e8; /* כחול לכותרת */
+  color: #1a73e8;
   margin: 0;
   text-align: center;
 }

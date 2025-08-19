@@ -9,7 +9,6 @@ export function Profile() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  // סנכרון עם username ב־Context
   useEffect(() => {
     setNameInput(username);
   }, [username]);

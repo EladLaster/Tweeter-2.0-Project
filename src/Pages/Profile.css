@@ -55,9 +55,9 @@
 }
 
 .profile-form button:disabled {
-  background-color: #7bb8f5; /* צבע תכלת ברור */
+  background-color: #7bb8f5;
   color: white;
-  cursor: not-allowed; /* סימן עצור */
+  cursor: not-allowed;
   border: none;
 }
 

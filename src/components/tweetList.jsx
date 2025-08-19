@@ -14,7 +14,7 @@ export function TweetList() {
     <div className="posts">
       <ul>
         {tweets.map((tweet) => (
-          <Tweet key={tweet.id} tweet={tweet} /> // שימוש ב-id בלבד כ-key
+          <Tweet key={tweet.id} tweet={tweet} /> 
         ))}
       </ul>
     </div>

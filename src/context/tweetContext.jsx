@@ -8,7 +8,6 @@ export function TweetProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch initial tweets
   const fetchTweets = async () => {
     try {
       const { data, error } = await supabase
@@ -26,7 +25,6 @@ export function TweetProvider({ children }) {
   useEffect(() => {
   fetchTweets();
 
-  // יצירת channel חדש ל-realtime
   const channel = supabase
     .channel('tweetTable')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tweetTable' }, (payload) => {
@@ -35,7 +33,7 @@ export function TweetProvider({ children }) {
     .subscribe();
 
   return () => {
-    supabase.removeChannel(channel); // הסרה נקייה כשקמפו יוצא מה-DOM
+    supabase.removeChannel(channel);
   };
 }, []);
 
@@ -54,7 +52,6 @@ export function TweetProvider({ children }) {
 
       if (error) throw error;
 
-      // Optional: add immediately to state (optimistic update)
       if (data && data.length > 0) {
         setTweets((prev) => [data[0], ...prev]);
       }

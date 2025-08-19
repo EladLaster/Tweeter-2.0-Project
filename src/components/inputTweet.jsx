@@ -13,7 +13,7 @@ export function InputTweet() {
   const handleSubmit = async () => {
     if (!text.trim() || text.length > 140 || loading || !user || !username) return;
 
-    await addTweet(text, username); // שולח תמיד את השם המעודכן
+    await addTweet(text, username);
     setText("");
   };
 

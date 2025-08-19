@@ -6,7 +6,6 @@ export function ProtectedRoute({ children }) {
   const { user, loadingUser } = useContext(UserContext);
 
   if (loadingUser) {
-    // מחזיר משהו בזמן שהמשתמש עדיין בטעינה
     return <p>Loading...</p>;
   }
 
