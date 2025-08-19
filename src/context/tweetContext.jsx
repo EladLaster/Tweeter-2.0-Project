@@ -8,36 +8,45 @@ export function TweetProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchTweets = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("tweetTable")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      setTweets(data);
-    } catch (err) {
-      setError("Failed to fetch tweets");
-    }
-  };
-
   useEffect(() => {
-  fetchTweets();
+    // פונקציה למשיכת כל הציוצים הקיימים מה-DB
+    const fetchTweets = async () => {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from("tweetTable")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-  const channel = supabase
-    .channel('tweetTable')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tweetTable' }, (payload) => {
-      setTweets((prev) => [payload.new, ...prev]);
-    })
-    .subscribe();
+        if (error) throw error;
+        setTweets(data);
+      } catch (err) {
+        setError("Failed to fetch tweets");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  return () => {
-    supabase.removeChannel(channel);
-  };
-}, []);
+    fetchTweets();
 
+    // Subscription ל-INSERTים חדשים בזמן אמת
+    const subscription = supabase
+      .channel("public:tweetTable")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "tweetTable" },
+        (payload) => {
+          setTweets((prev) => [payload.new, ...prev]);
+        }
+      )
+      .subscribe();
 
+    return () => {
+      supabase.removeChannel(subscription);
+    };
+  }, []);
+
+  // פונקציה להוספת ציוץ חדש
   const addTweet = async (content, userName) => {
     if (!content || !userName) return;
 
@@ -48,10 +57,11 @@ export function TweetProvider({ children }) {
       const { data, error } = await supabase
         .from("tweetTable")
         .insert([{ content, userName, created_at: new Date().toISOString() }])
-        .select();
+        .select(); // מחזיר את הנתונים שנוספו
 
       if (error) throw error;
 
+      // מעדכן state מיידית (לצורך UI responsiveness)
       if (data && data.length > 0) {
         setTweets((prev) => [data[0], ...prev]);
       }

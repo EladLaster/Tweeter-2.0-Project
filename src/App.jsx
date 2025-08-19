@@ -7,7 +7,7 @@ import { Home } from './Pages/Home';
 import { Navbar } from './Pages/NavBar';
 import { Login } from './Pages/Login';
 import { SignUp } from './Pages/SignUp';
-import { ProtectedRoute } from './components/ProtectedRoute'; 
+import { ProtectedRoute } from './routes/protectedRoute'; 
 
 function App() {
   return (
